@@ -21,22 +21,23 @@
   - GitHub CLI is installed but cannot read its config file because of local permission denial.
 - Selected MATLAB as the implementation language.
 - Received GitHub repository address: `https://github.com/circle311/signal-and-system`.
+- Configured `origin` as `https://github.com/circle311/signal-and-system.git`.
+- Pushed local `master` branch to GitHub and set it to track `origin/master`.
 
 ### Current Plan
 
-1. Configure the GitHub remote and push the local archive when authentication/network access allows.
-2. Select and preprocess the input audio clip according to `audio_requirements.md`.
-3. Implement the MATLAB signal processing experiments.
-4. Generate figures and output audio.
-5. Select and study the IEEE OFDM/OTFS paper.
-6. Write and export the final report.
-7. Package and verify the final submission zip.
+1. Select and preprocess the input audio clip according to `audio_requirements.md`.
+2. Implement the MATLAB signal processing experiments.
+3. Generate figures and output audio.
+4. Select and study the IEEE OFDM/OTFS paper.
+5. Write and export the final report.
+6. Package and verify the final submission zip.
 
 ### Open Questions
 
 - Which audio clip should be selected as the input signal?
 - Which OFDM/OTFS paper will be used for Part II?
-- Can the local repository be pushed to GitHub through HTTPS authentication from this environment?
+- Which audio file should be used as `audio/input/original.wav`?
 
 ### Notes
 
