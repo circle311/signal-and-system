@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Large/generated coursework outputs can be tracked intentionally when final.
+*.zip
