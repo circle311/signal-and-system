@@ -24,19 +24,19 @@ Important grading constraints:
 
 ```text
 .
-├── Course Project(1).docx       # Original project brief
-├── Course Project(1).md         # Converted project brief
-├── workflow.md                  # Execution workflow
-├── log.md                       # Project progress log
-├── scripts/
-│   └── convert_docx_to_md.py    # DOCX to Markdown converter
-├── src/                         # MATLAB/Python implementation
-├── audio/
-│   ├── input/                   # Original selected audio clip
-│   └── output/                  # Generated audio clips
-├── figures/                     # Waveforms and spectra for report
-├── paper/                       # OFDM/OTFS paper notes and translation
-└── report/                      # Report source and final PDF
+|-- Course Project(1).docx       # Original project brief
+|-- Course Project(1).md         # Converted project brief
+|-- workflow.md                  # Execution workflow
+|-- log.md                       # Project progress log
+|-- scripts/
+|   `-- convert_docx_to_md.py    # DOCX to Markdown converter
+|-- src/                         # MATLAB/Python implementation
+|-- audio/
+|   |-- input/                   # Original selected audio clip
+|   `-- output/                  # Generated audio clips
+|-- figures/                     # Waveforms and spectra for report
+|-- paper/                       # OFDM/OTFS paper notes and translation
+`-- report/                      # Report source and final PDF
 ```
 
 Create missing directories when implementation starts.
