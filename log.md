@@ -15,6 +15,10 @@
   - No late submission.
 - Initialized a local Git repository for project history.
 - Created `workflow.md` to define the project execution plan and milestone tracking rules.
+- Created the first Git commit: `30e9975 Initialize signals project workflow`.
+- Checked remote GitHub creation options:
+  - GitHub connector tools available in this session do not expose repository creation.
+  - GitHub CLI is installed but cannot read its config file because of local permission denial.
 
 ### Current Plan
 
@@ -32,7 +36,7 @@
 - Which implementation language should be used: MATLAB or Python?
 - Which audio clip should be selected as the input signal?
 - Which OFDM/OTFS paper will be used for Part II?
-- Should the final GitHub archive be a local Git repository only, or should it also be pushed to a remote GitHub repository?
+- Should the final GitHub archive be a local Git repository only, or should it also be pushed to a remote GitHub repository after GitHub CLI access is fixed or a remote URL is provided?
 
 ### Notes
 
