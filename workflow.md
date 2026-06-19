@@ -30,7 +30,7 @@ Important grading constraints:
 |-- log.md                       # Project progress log
 |-- scripts/
 |   `-- convert_docx_to_md.py    # DOCX to Markdown converter
-|-- src/                         # MATLAB/Python implementation
+|-- src/                         # MATLAB implementation
 |-- audio/
 |   |-- input/                   # Original selected audio clip
 |   `-- output/                  # Generated audio clips
@@ -45,7 +45,7 @@ Create missing directories when implementation starts.
 
 ### Phase 1: Setup and Input Selection
 
-1. Choose MATLAB or Python as the main implementation language.
+1. Use MATLAB as the main implementation language.
 2. Select a short audio clip, preferably mono or converted to mono for simpler analysis.
 3. Store the original audio under `audio/input/`.
 4. Record sampling rate, duration, channel count, and any preprocessing choices in the report notes.
@@ -79,9 +79,9 @@ Create missing directories when implementation starts.
 
 ### Phase 5: Magnitude and Phase Reconstruction
 
-1. Denote `X(jω)` as the Fourier transform of `x(t)`.
-2. Reconstruct and plot the inverse transform of the magnitude spectrum, `F^-1{|X(jω)|}`.
-3. Reconstruct and plot the inverse transform of the phase spectrum, `F^-1{e^{j∠X(jω)}}`.
+1. Denote `X(jw)` as the Fourier transform of `x(t)`, where `w` is angular frequency.
+2. Reconstruct and plot the inverse transform of the magnitude spectrum, `F^-1{|X(jw)|}`.
+3. Reconstruct and plot the inverse transform of the phase spectrum, `F^-1{exp(j angle X(jw))}`.
 4. Compare both reconstructions with the original signal.
 5. Discuss what magnitude and phase each preserve or destroy.
 
@@ -138,3 +138,16 @@ The report should include:
   - Final package.
 - Update `log.md` whenever a decision, result, issue, or verification outcome changes.
 - Keep generated outputs separate from source files so changes are easy to review.
+
+## 6. MATLAB Implementation Notes
+
+- Main language: MATLAB.
+- Recommended entry point: `src/main.m`.
+- Suggested helper functions:
+  - `src/load_audio.m`: read input audio, convert stereo to mono, trim if needed, normalize amplitude.
+  - `src/plot_waveform.m`: save time-domain waveform figures.
+  - `src/plot_spectrum.m`: compute FFT and save frequency-domain figures.
+  - `src/time_transform.m`: generate `x(-t)`, `x(2t)`, and `x(t/2)`.
+  - `src/reconstruct_mag_phase.m`: create magnitude-only and phase-only inverse transform results.
+  - `src/ideal_lowpass_filter.m`: apply frequency-domain ideal low-pass filtering.
+- Use MATLAB comments generously. The project brief requires at least 30% notes/comments in source code.
