@@ -36,17 +36,20 @@
 - Created report source `report/report.tex` and compiled `report/report.pdf`.
 - Verified every MATLAB source file has at least 30% comment lines.
 - Rendered the PDF to PNG pages for visual QA and checked representative pages.
+- Rewrote `report/report.tex` into Chinese as requested.
+- Recompiled the Chinese `report/report.pdf`.
+- Rendered the Chinese PDF to PNG pages and checked representative pages for font and layout quality.
+- Rebuilt `submission.zip` with the Chinese PDF.
 
 ### Current Plan
 
 1. Review whether the report should include personal/course identity fields.
-2. Optionally polish the Part II translation depth if the instructor expects a longer paper translation.
-3. Package the PDF report, generated audio clips, and MATLAB source code into a final submission zip.
+2. Optionally expand the Part II paper translation if the instructor expects a longer standalone translation.
+3. Submit `submission.zip` after identity fields are confirmed.
 
 ### Open Questions
 
 - What name/student ID/course section should appear on the report cover?
-- Should the report remain in English, or should it be converted to Chinese?
 - Should the Part II paper translation be expanded into a longer standalone translation?
 
 ### Notes

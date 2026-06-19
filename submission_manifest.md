@@ -2,7 +2,7 @@
 
 Final package contents should include:
 
-1. Report PDF:
+1. Chinese report PDF:
    - `report/report.pdf`
 2. Generated audio clips:
    - `audio/input/original.wav`
@@ -33,5 +33,5 @@ Current verification status:
 - Generated audio files exist.
 - Generated figures exist.
 - Report PDF compiled successfully.
-- PDF visual QA was performed by rendering pages to PNG and checking representative pages.
+- Chinese PDF visual QA was performed by rendering pages to PNG and checking representative pages.
 - Every MATLAB source file has at least 30% comment lines.

@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt,a4paper]{ctexart}
 
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath}
@@ -16,164 +16,160 @@
   citecolor=blue
 }
 
-\title{Signals and Systems Course Project Report}
-\author{Generated project draft}
+\title{信号与系统课程项目报告}
+\author{课程项目草稿}
 \date{2026 Spring}
 
 \begin{document}
 \maketitle
 
-\section{Project Objective}
+\section{项目目标}
 
-This project studies basic signal transformations and frequency-domain
-analysis using a real audio signal. The sampled audio is denoted by $x[n]$.
-Using interpolation, it is treated as an approximation of a continuous-time
-signal $x(t)$. The project then analyzes time reversal, time scaling, Fourier
-spectra, magnitude-only and phase-only reconstruction, and ideal low-pass
-filtering.
+本项目使用一段真实音频信号完成信号与系统中的基本时域变换和频域分析。
+音频采样序列记为 $x[n]$，通过插值方法构造其连续时间近似 $x(t)$。
+随后分别研究时间反转、时间尺度变换、傅里叶频谱、幅度谱与相位谱的逆变换，
+以及频域理想低通滤波。整个实验使用 MATLAB 完成，生成的音频、波形图和频谱图
+均可由源码重新得到。
 
-\section{Input Audio and MATLAB Environment}
+\section{输入音频与 MATLAB 环境}
 
-The implementation language is MATLAB. The input audio file is
-\texttt{audio/input/original.wav}. It has the following properties:
+本项目的实现语言为 MATLAB。输入音频文件为
+\texttt{audio/input/original.wav}。该音频的基本参数如下：
 
 \begin{itemize}[nosep]
-  \item Format: WAV, PCM signed 16-bit little-endian.
-  \item Sampling rate: 16000 Hz.
-  \item Channels: 1 channel, mono.
-  \item Duration: 7.000 seconds.
-  \item Preprocessing: amplitude normalization to avoid clipping.
+  \item 格式：WAV，PCM signed 16-bit little-endian。
+  \item 采样率：16000 Hz。
+  \item 声道数：单声道。
+  \item 时长：7.000 秒。
+  \item 预处理：读入后进行幅度归一化，避免后续写出音频时削波。
 \end{itemize}
 
-The audio is short enough for clear waveform and spectrum plots, but long
-enough to show meaningful frequency content.
+该音频长度适中。一方面，7 秒的长度足以体现较丰富的频谱内容；另一方面，
+它又不会使波形图和 FFT 频谱图过于拥挤，适合作为本项目的输入信号。
 
-\section{Interpolation and Continuous-Time Counterpart}
+\section{插值与连续时间近似}
 
-The discrete audio samples $x[n]$ are read by MATLAB using \texttt{audioread}.
-To construct a computable approximation of $x(t)$, the project uses linear
-interpolation between adjacent samples. In MATLAB this is implemented with
-\texttt{interp1}. Figure~\ref{fig:interp} shows the sampled values and the
-interpolated curve over a short time window.
+MATLAB 使用 \texttt{audioread} 读取离散音频样本 $x[n]$。由于计算机无法
+直接表示真正连续的 $x(t)$，本项目采用线性插值作为连续时间信号的近似。
+具体来说，相邻采样点之间用直线连接，从而构造可绘制、可分析的 $x(t)$。
+图~\ref{fig:interp} 展示了短时间窗口内的离散样本和线性插值曲线。
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.85\linewidth]{02_linear_interpolation_xt.png}
-  \caption{Linear interpolation approximation of $x(t)$.}
+  \caption{$x(t)$ 的线性插值近似。}
   \label{fig:interp}
 \end{figure}
 
-\section{Time-Domain Transformations}
+\section{时域变换}
 
-Three time-domain transformations are generated:
+根据项目要求，本文生成并分析以下三个时域变换信号：
 
 \begin{itemize}
-  \item $x(-t)$: time reversal, implemented by reversing the audio samples.
-  \item $x(2t)$: time compression by a factor of 2. The resulting duration is
-  about 3.5 seconds.
-  \item $x(t/2)$: time expansion by a factor of 2. The resulting duration is
-  about 14 seconds.
+  \item $x(-t)$：时间反转。对有限长音频而言，可通过反转采样序列实现，
+  听感上相当于倒放原始音频。
+  \item $x(2t)$：时间压缩。时间轴压缩为原来的一半，因此输出时长约为
+  3.5 秒。
+  \item $x(t/2)$：时间扩展。时间轴扩展为原来的两倍，因此输出时长约为
+  14 秒。
 \end{itemize}
 
-The time-reversed signal sounds like the original clip played backward. The
-compressed signal changes faster in time, while the expanded signal changes
-more slowly.
+从听感上看，$x(-t)$ 保留了原音频的能量分布但播放顺序相反；$x(2t)$
+变化更快，时长更短；$x(t/2)$ 变化更慢，时长更长。
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{03_x_reverse_waveform.png}
-  \caption{Waveform of $x(-t)$.}
+  \caption{$x(-t)$ 的波形。}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{04_x_2t_waveform.png}
-  \caption{Waveform of $x(2t)$.}
+  \caption{$x(2t)$ 的波形。}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{05_x_t_over_2_waveform.png}
-  \caption{Waveform of $x(t/2)$.}
+  \caption{$x(t/2)$ 的波形。}
 \end{figure}
 
-\section{Fourier Transform and Spectrum Analysis}
+\section{傅里叶变换与频谱分析}
 
-The Fourier spectra are computed using the FFT. For visualization,
-\texttt{fftshift} places negative frequencies on the left and positive
-frequencies on the right. The magnitude spectra are normalized and plotted in
-dB.
+本项目使用 FFT 计算各信号的频谱，并使用 \texttt{fftshift} 将负频率部分
+移动到图像左侧、正频率部分移动到图像右侧。幅度谱经过归一化后以 dB 为单位绘制，
+这样可以更清楚地比较频谱形状，而不是只比较绝对幅度。
 
-For time reversal, the magnitude spectrum is largely preserved, while phase is
-changed. For $x(2t)$, time compression corresponds to frequency-axis expansion.
-For $x(t/2)$, time expansion corresponds to frequency-axis compression. These
-observations agree with the Fourier transform time-scaling property:
+对于时间反转 $x(-t)$，幅度谱整体上与原信号相近，但相位发生变化。
+对于 $x(2t)$，时域压缩对应频域扩展；对于 $x(t/2)$，时域扩展对应频域压缩。
+这与傅里叶变换的时间尺度性质一致：
 
 \[
-x(at) \Longleftrightarrow \frac{1}{|a|} X\left(j\frac{\omega}{a}\right).
+x(at) \Longleftrightarrow \frac{1}{|a|}X\left(j\frac{\omega}{a}\right).
 \]
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{06_spectrum_original.png}
-  \caption{Spectrum of the original signal.}
+  \caption{原始信号的频谱。}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{07_spectrum_x_reverse.png}
-  \caption{Spectrum of $x(-t)$.}
+  \caption{$x(-t)$ 的频谱。}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{08_spectrum_x_2t.png}
-  \caption{Spectrum of $x(2t)$.}
+  \caption{$x(2t)$ 的频谱。}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{09_spectrum_x_t_over_2.png}
-  \caption{Spectrum of $x(t/2)$.}
+  \caption{$x(t/2)$ 的频谱。}
 \end{figure}
 
-\section{Magnitude-Only and Phase-Only Reconstruction}
+\section{幅度谱与相位谱的逆变换}
 
-Let $X(j\omega)$ be the Fourier transform of $x(t)$. The project compares:
+设 $X(j\omega)$ 为 $x(t)$ 的傅里叶变换。项目要求分别观察幅度谱和相位谱
+各自对信号重构的影响，因此本文比较以下两个信号：
 
 \[
 \mathcal{F}^{-1}\{|X(j\omega)|\}
 \]
 
-and
+和
 
 \[
 \mathcal{F}^{-1}\{e^{j\angle X(j\omega)}\}.
 \]
 
-The magnitude-only reconstruction keeps the spectral energy distribution but
-throws away phase. The phase-only reconstruction keeps timing and phase
-relationships but discards the original magnitude distribution. The resulting
-waveforms are very different from the original, showing that both magnitude and
-phase are important for reconstructing an audio signal.
+幅度谱逆变换保留了原信号的频率能量分布，但丢弃了相位信息；相位谱逆变换
+保留了相位关系，但丢弃了原始幅度分布。实验结果表明，两种重构波形都与原始
+音频有明显差异，说明幅度和相位对于完整恢复音频信号都很重要。特别是对于语音
+或音乐信号，相位关系会影响波形的时域结构，而幅度谱决定各频率成分的强弱。
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{10_magnitude_only_waveform.png}
-  \caption{Inverse transform of the magnitude spectrum.}
+  \caption{幅度谱逆变换得到的波形。}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{11_phase_only_waveform.png}
-  \caption{Inverse transform of the phase spectrum.}
+  \caption{相位谱逆变换得到的波形。}
 \end{figure}
 
-\section{Frequency-Domain Low-Pass Filtering}
+\section{频域理想低通滤波}
 
-An ideal low-pass filter is applied in the frequency domain. Since the sampling
-rate is 16000 Hz, the Nyquist frequency is 8000 Hz. The chosen cutoff frequency
-is 3000 Hz. The filter response is
+本项目在频域中对 $x(t)$ 实现理想低通滤波。输入音频采样率为 16000 Hz，
+因此奈奎斯特频率为 8000 Hz。本文选择截止频率为 3000 Hz。理想低通滤波器的
+频率响应为
 
 \[
 H(f)=
@@ -183,81 +179,75 @@ H(f)=
 \end{cases}
 \]
 
-This filter removes high-frequency components while preserving the low and
-middle audio band. The filtered waveform and spectrum are shown below.
+该滤波器保留低频和中频成分，同时去除 3000 Hz 以上的高频成分。实际处理时，
+MATLAB 先对信号作 FFT，再用二值频域掩膜乘以频谱，最后通过 IFFT 得到滤波后
+的时域信号。滤波后的波形和频谱如下图所示。
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{12_lowpass_waveform.png}
-  \caption{Waveform after ideal low-pass filtering.}
+  \caption{理想低通滤波后的波形。}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{13_lowpass_spectrum.png}
-  \caption{Spectrum after ideal low-pass filtering.}
+  \caption{理想低通滤波后的频谱。}
 \end{figure}
 
-\section{Part II: OTFS Paper Study}
+\section{第二部分：OTFS 论文阅读与理解}
 
-The selected paper is \emph{Interference Cancellation and Iterative Detection
-for Orthogonal Time Frequency Space Modulation} by P. Raviteja, Khoa T. Phan,
-Yi Hong, and Emanuele Viterbo. It was published in IEEE Transactions on
-Wireless Communications in 2018. A public preprint is available at
-\url{https://arxiv.org/abs/1802.05242}.
+本文选择的论文为 P. Raviteja、Khoa T. Phan、Yi Hong 和 Emanuele Viterbo
+的 \emph{Interference Cancellation and Iterative Detection for Orthogonal
+Time Frequency Space Modulation}。该论文发表于 2018 年的
+\emph{IEEE Transactions on Wireless Communications}，公开预印本可见
+\url{https://arxiv.org/abs/1802.05242}。
 
-The paper studies OTFS modulation over delay-Doppler channels. In high-mobility
-scenarios, OFDM can suffer from Doppler spread, which breaks subcarrier
-orthogonality and creates inter-carrier interference. OTFS addresses this
-problem by placing information symbols in the delay-Doppler domain and then
-mapping them to the time-frequency domain for transmission.
+这篇论文研究 OTFS 调制在延迟-多普勒信道中的检测问题。在高速移动场景中，
+无线信道会随时间快速变化，多普勒扩展会破坏 OFDM 子载波之间的正交性，
+从而产生明显的载波间干扰。OTFS 的基本思想是将信息符号放置在延迟-多普勒域，
+再通过二维变换映射到常规时频域进行发送。
 
-The main idea can be translated and summarized as follows. A wireless channel
-with multipath delay and Doppler shift has a natural sparse structure in the
-delay-Doppler domain. Instead of observing the channel as rapidly changing
-subcarriers, OTFS observes it through a two-dimensional representation connected
-to physical path delays and velocities. The authors derive an input-output
-relationship for OTFS modulation and demodulation, analyze the resulting
-interference, and propose a message-passing detector that iteratively cancels
-interference and estimates the transmitted symbols.
+论文的主要内容可以概括为以下几点。首先，作者推导了 OTFS 调制和解调在
+延迟-多普勒信道中的输入输出关系。该关系表明，接收符号受到的干扰主要来自
+延迟-多普勒域中有限数量的相邻位置，而不是在整个时频平面上无序扩散。其次，
+作者分析了 OTFS 中的干扰结构，并提出低复杂度消息传递检测算法。该算法利用
+信道稀疏性，通过迭代方式估计符号并抵消干扰。
 
-OTFS can overcome frequency-selective fading because multipath delays are
-represented explicitly along the delay dimension. It can also handle fast
-mobility because Doppler shifts are represented explicitly along the Doppler
-dimension. Since practical wireless channels often contain only a limited number
-of dominant propagation paths, the delay-Doppler representation is sparse. This
-sparsity makes joint detection and interference cancellation practical.
-Therefore, OTFS is more robust than conventional OFDM in channels with severe
-time variation and Doppler spread.
+从信号与系统角度理解，OTFS 的优势来自选择了更适合高速移动信道的变换域。
+频率选择性衰落主要由多径时延造成，而 OTFS 在延迟维度中直接表示这些路径；
+高速移动造成的多普勒频移则在多普勒维度中直接表示。由于实际无线传播通常只由
+有限数量的主要路径决定，延迟-多普勒域信道往往是稀疏的。接收机可以利用这种
+稀疏结构做联合检测和干扰抵消，因此 OTFS 比传统 OFDM 更适合频率选择性衰落
+和快速移动场景。
 
-\section{Generated Files}
+\section{生成文件说明}
 
 \begin{table}[H]
 \centering
 \begin{tabular}{ll}
 \toprule
-File & Meaning \\
+文件 & 含义 \\
 \midrule
-\texttt{audio/output/original\_normalized.wav} & Normalized source audio \\
-\texttt{audio/output/x\_reverse.wav} & Time reversal $x(-t)$ \\
-\texttt{audio/output/x\_2t.wav} & Time compression $x(2t)$ \\
-\texttt{audio/output/x\_t\_over\_2.wav} & Time expansion $x(t/2)$ \\
-\texttt{audio/output/magnitude\_only\_reconstruction.wav} & Magnitude-only reconstruction \\
-\texttt{audio/output/phase\_only\_reconstruction.wav} & Phase-only reconstruction \\
-\texttt{audio/output/lowpass\_ideal\_3000Hz.wav} & Ideal low-pass result \\
+\texttt{audio/output/original\_normalized.wav} & 归一化后的原始音频 \\
+\texttt{audio/output/x\_reverse.wav} & 时间反转 $x(-t)$ \\
+\texttt{audio/output/x\_2t.wav} & 时间压缩 $x(2t)$ \\
+\texttt{audio/output/x\_t\_over\_2.wav} & 时间扩展 $x(t/2)$ \\
+\texttt{audio/output/magnitude\_only\_reconstruction.wav} & 幅度谱逆变换重构 \\
+\texttt{audio/output/phase\_only\_reconstruction.wav} & 相位谱逆变换重构 \\
+\texttt{audio/output/lowpass\_ideal\_3000Hz.wav} & 理想低通滤波结果 \\
 \bottomrule
 \end{tabular}
-\caption{Generated audio files.}
+\caption{生成的音频文件。}
 \end{table}
 
-\section{Conclusion}
+\section{结论}
 
-The MATLAB implementation completes all signal-processing requirements of the
-project. The experiments demonstrate how time-domain transformations affect
-both waveform duration and spectral distribution, why magnitude and phase are
-both necessary for faithful reconstruction, and how frequency-domain filtering
-can be implemented through the Fourier transform. The OTFS paper study further
-connects transform-domain signal characterization with modern wireless
-communication systems.
+本项目使用 MATLAB 完成了课程项目中要求的主要信号处理实验。实验结果说明，
+时域反转和时间尺度变换会改变信号的时间结构，并在频域中体现为相位变化或
+频率轴伸缩；幅度谱和相位谱分别携带不同类型的信息，二者缺一都会造成重构结果
+与原信号明显不同；频域理想低通滤波可以通过 FFT、频域掩膜和 IFFT 直接实现。
+第二部分的 OTFS 论文阅读进一步说明，选择合适的变换域可以让复杂信道呈现出
+更清晰、更稀疏的结构，从而改善高速移动和频率选择性衰落场景下的通信性能。
 
 \end{document}
