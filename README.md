@@ -10,5 +10,13 @@ Start with:
 - `workflow.md` for the execution workflow.
 - `audio_requirements.md` for input audio selection rules.
 - `log.md` for progress history and open decisions.
+- `src/main.m` for the MATLAB pipeline.
+- `report/report.pdf` for the current report draft.
 
 The final submission should be a `.zip` package containing the PDF report, generated audio clips, and source code.
+
+Run the MATLAB pipeline from the repository root:
+
+```matlab
+run('src/main.m')
+```

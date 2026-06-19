@@ -2,6 +2,19 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+*.asv
 
 # Large/generated coursework outputs can be tracked intentionally when final.
 *.zip
+
+# LaTeX build intermediates. Keep final PDFs tracked.
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.xdv
+*.synctex.gz
+
+# Internal visual QA renders.
+tmp/

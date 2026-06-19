@@ -23,21 +23,31 @@
 - Received GitHub repository address: `https://github.com/circle311/signal-and-system`.
 - Configured `origin` as `https://github.com/circle311/signal-and-system.git`.
 - Pushed local `master` branch to GitHub and set it to track `origin/master`.
+- Confirmed input audio `audio/input/original.wav`:
+  - Format: WAV, PCM signed 16-bit.
+  - Sampling rate: 16000 Hz.
+  - Channels: mono.
+  - Duration: 7.000 seconds.
+  - No ffmpeg preprocessing required.
+- Implemented the MATLAB signal-processing pipeline under `src/`.
+- Generated required audio outputs under `audio/output/`.
+- Generated waveform, spectrum, reconstruction, and low-pass filter figures under `figures/`.
+- Selected an OTFS paper for Part II and added notes under `paper/`.
+- Created report source `report/report.tex` and compiled `report/report.pdf`.
+- Verified every MATLAB source file has at least 30% comment lines.
+- Rendered the PDF to PNG pages for visual QA and checked representative pages.
 
 ### Current Plan
 
-1. Select and preprocess the input audio clip according to `audio_requirements.md`.
-2. Implement the MATLAB signal processing experiments.
-3. Generate figures and output audio.
-4. Select and study the IEEE OFDM/OTFS paper.
-5. Write and export the final report.
-6. Package and verify the final submission zip.
+1. Review whether the report should include personal/course identity fields.
+2. Optionally polish the Part II translation depth if the instructor expects a longer paper translation.
+3. Package the PDF report, generated audio clips, and MATLAB source code into a final submission zip.
 
 ### Open Questions
 
-- Which audio clip should be selected as the input signal?
-- Which OFDM/OTFS paper will be used for Part II?
-- Which audio file should be used as `audio/input/original.wav`?
+- What name/student ID/course section should appear on the report cover?
+- Should the report remain in English, or should it be converted to Chinese?
+- Should the Part II paper translation be expanded into a longer standalone translation?
 
 ### Notes
 
