@@ -1,4 +1,4 @@
-# Project Log
+﻿# Project Log
 
 ## 2026-06-19
 
@@ -39,7 +39,7 @@
 - Rewrote `report/report.tex` into Chinese as requested.
 - Recompiled the Chinese `report/report.pdf`.
 - Rendered the Chinese PDF to PNG pages and checked representative pages for font and layout quality.
-- Rebuilt `submission.zip` with the Chinese PDF.
+- Rebuilt `submission.zip` with the Chinese PDF.`r`n- Added report cover identity: name 袁尚志, student ID 524031910430, class 电科2445.`r`n- Recompiled `report/report.pdf` and rebuilt `submission.zip` with the identity fields.
 
 ### Current Plan
 
@@ -56,3 +56,4 @@
 
 - The DOCX uses Office Math objects. The conversion script reads both normal text and math text from the underlying document XML so formula names such as `x[n]`, `x(t)`, `x(2t)`, and `X(jw)` are preserved.
 - PowerShell may display some UTF-8 mathematical symbols incorrectly unless UTF-8 output is explicitly enabled.
+
